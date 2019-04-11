@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="good.css">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1015731_16gcscclyhz.css
+
+    ">
+    <!-- <link rel="stylesheet" href="dist/css/swiper.min.css"> -->
+</head>
+
+<body>
+    <div>
+        <div class="header">
+            <div class="bg"></div>
+            <div class="header_1">
+                <img src="http://static.galileo.xiaojukeji.com/static/tms/seller_avatar_256px.jpg">
+                <div class="header_1_txt">
+                    <p>aaa</p>
+                    <p>aaa</p>
+                    <p>aaa</p>
+                    <a>5个
+                        <span> ></span>
+                    </a>
+
+                </div>
+            </div>
+            <div class="header_2">
+                <img src="../resource/img/bulletin@2x.png">
+                <p></p>
+                <span>></span>
+            </div>
+        </div>
+    </div>
+    <!-- 商品，评价，商家 -->
+    <div class="shop">
+        <p class="on">商品</p>
+        <p>评价</p>
+        <p>商家</p>
+    </div>
+    <!-- 内容区 -->
+    <div class="neirongqu">
+        <div class="neirongqu_box">
+        <!-- 商品 -->
+    <div class="content" >
+        <!-- 左边 -->
+        <div class="content_left">
+            <ul class="fenlei">
+            </ul>
+        </div>
+        <!-- 又边 -->
+        <div class="right">
+            <div class="content_right">
+
+            </div>
+        </div>
+    </div>
+    <!-- 评价 -->
+    <div class="pingjia" >
+
+    </div>
+    <!-- 商家 -->
+    <div class="shangjia" >
+        
+    </div>
+    </div>
+</div>
+    <!-- 底部 -->
+    <div class="botto">
+        <div class="bot_left">
+            <div class="iconfont icon-gouwuche"></div>
+            <div class="zongshu"></div>
+            <p>￥<span class="zongjia">0</span></p>
+            <p>另需配送费￥<span></span>元</p>
+        </div>
+        <div class="bot_right">
+            <p><span></span>起送</p>
+            <div class="jiesuan">
+                结算
+            </div>
+        </div>
+    </div>
+    <!-- 第二页店铺优惠和评价 -->
+    <div class="special_offers">
+        <div class="bg_1"></div>
+        <!-- 星星 -->
+        <div class="star">
+            <h3></h3>
+            <div class="star_1">
+
+            </div>
+        </div>
+        <!-- 优惠信息 -->
+        <div class="discounts">
+            <div class="xiantiao">
+                <span></span>
+                <h4>优惠信息</h4><span></span>
+            </div>
+            <ul></ul>
+            <div class="xiantiao_1">
+                    <span></span>
+                    <h4>商家公告</h4><span></span>
+            </div>
+            <div class="gonggao">
+
+            </div>
+        </div>
+        <!-- 关闭叉号 -->
+        <div class="iconfont icon-fork">
+
+        </div>
+
+    </div>
+    <!-- 第三页购物车 -->
+    <div class="shop_cart">
+            <div class="bg_2"></div>
+            <div class="shop_cart_bot">
+                <h3>购物车<span>清空</span></h3> 
+                <ul class="huowu"> 
+
+                </ul>
+            </div>
+           
+    </div>
+    <!-- 商品详情 -->
+    <!-- <div class="product_details">
+        <div class="bg_3"></div>
+        <div class="product_details_txt">
+
+        </div>
+    </div> -->
+    <div class="food_intro">
+    <div class="food_intro_box">
+    </div>
+    </div>
+
+
+
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+    <!-- <script src="dist/js/swiper.min.js"></script> -->
+
+    <script>
+        $(function () {
+            // document.documentElement.style.fontSize=document.documentElement.clientWidth/7.5+"px",
+            $.ajax({
+                type: "get",
+                url: "https://www.easy-mock.com/mock/5c38611792d3356d94c68651",
+                success: function (res) {
+                    console.log(res)
+                    $(".header_1_txt p:nth-of-type(1)").html(res.seller.name)
+                    $(".header_1_txt p:nth-of-type(2)").html(res.seller.description + "/" + res.seller.deliveryTime + "分钟")
+                    $(".header_1_txt p:nth-of-type(3)").html(res.seller.supports[0].description + ",满50减10")
+                    $(".header_2 p").html(res.seller.bulletin)
+                    // 底部
+                    $(".bot_left p:nth-of-type(2) span").html(res.seller.deliveryPrice)
+                    $(".bot_right p:nth-of-type(1) span").html("￥" + res.seller.minPrice)
+
+                    var list = res.goods;
+
+                    var oli = "";
+                    var sp = "";
+                    var yh = "";
+                    
+                    // console.log(list.length)
+                    for (var i = 0; i < list.length; i++) {
+                        oli += "<li>"
+                        oli += "<p>" + list[i].name + "</p>"
+                        oli += "</li>"
+                        sp += "<div class=content_right_1>"
+                        sp += "<h3>" + list[i].name + "</h3>"
+                        var food = res.goods[i].foods;
+                        for (var j = 0; j < food.length; j++) {
+                            // 商品信息it
+                            sp += "<div class=commodity_inf>"
+                            sp += "<img src=" + food[j].image + ">"
+                            // 商品信息里的文字
+                            sp += "<div class=commodity_inf_txt>"
+                            sp += "<p class=food_name>" + food[j].name + "</p>"
+                            // 描述
+                            if (food[j]) {
+                                sp += "<p>" + food[j].description + "</p>"
+                            }
+                            sp += "<p> 月售" + food[j].sellCount + "份 好评率" + food[j].rating + "%</p>"
+                            // 新价格
+                            sp +="<div class='addbox'>"
+                            sp += "<p class='price'>￥" + food[j].price + "</p>"
+                            // 酒价格
+                            if (food[j].oldPrice) {
+                                sp += "<p class='oldprice'>￥" + food[j].oldPrice + "</p>"
+                            }
+                            // 加减按钮
+                            sp += "<span class='iconfont icon-jianshao'></span>"
+                            sp += "<span class='sum'>0</span>"
+                            sp += "<span class='iconfont icon-tianjia'></span>"
+
+                            sp += "</div>"
+                            sp += "</div></div>"
+                        }
+                        sp += "</div>"
+                    }
+                    $(".fenlei").html(oli);
+                    $(".content_right").html(sp);
+                    // 加号
+                    var b=0;
+                    var a = 0;
+                    var c = 0;
+                    var m = 0;
+                    // var e = 0;
+                    $(".icon-tianjia").click(function () {
+                        $(".zongshu").show()
+                        $(this).prev().show()
+                        $(this).prev().prev().show()
+                        // 加一
+                        $(this).prev().html(parseInt($(this).prev().html()) + 1)
+
+                        //   获取数量和价格
+                        a++;
+                        console.log(a)
+                        b =parseInt($(this).parent().find(".sum").html()) 
+                        console.log(b)
+                        c += parseInt($(this).parent().find(".price").html().substring(1))
+                        // e = parseInt($(this).parent().find(".price").html().substring(1))
+                        // 判断起送价格
+                        if (c >= 20) {
+                            $(".bot_right").children(1).hide()
+                            $(".jiesuan").show()
+                        } else if (c < 20) {
+                            m = 20 - c;
+                            //    $(".bot_right p:nth-of-type(1)  ").html("")
+                            $(".bot_right p:nth-of-type(1) span").html("还差￥" + m)
+                        }
+                        console.log(c)
+                        // 把数量和价格给底部
+                        $(this).parents(".neirongqu_box").parent().next().find(".zongjia").html(c)
+                        $(".zongshu").html(a)
+
+                        // 点击生成li放进购物车
+                        // var shop = "";
+
+                        // console.log($(this).parent().find(".price").html())
+                        $(".huowu").html("");
+                        for(var i=0;i<$(".commodity_inf").length;i++){
+                            var shop = "";
+                            if(parseInt($(".content_right .sum").eq(i).html())){
+                            shop +="<li>"
+                            shop +="<p>"+$(".content_right .food_name").eq(i).html()+ "</p>"
+                            shop += "<p class='price'>" + $(".content_right .price").eq(i).html()+ "</p>"
+                            shop +="<p>"
+                            shop += "<span class='iconfont icon-jianshao'></span>"
+                            shop += "<span class='sum'>"+$(".content_right .sum").eq(i).html()+"</span>"
+                            shop += "<span class='iconfont icon-tianjia'></span>"
+                            shop +="</p>"
+                            shop +="</li>"
+                           $(".huowu").append(shop)
+                        }
+                        }
+  
+                        console.log($(".commodity_inf").length)
+                    })
+                    // 减号
+                    $(".icon-jianshao").click(function () {
+                        // console.log(1)
+                        // 获取数量和价格
+                        a--;
+                        c -= parseInt($(this).parent().find(".price").html().substring(1))
+                        // 把数量和价格给底部
+                        $(".zongshu").html(a)
+                        // $(this).parents(".content").next().find(".zongjia").html(c)
+                        $(this).parents(".neirongqu_box").parent().next().find(".zongjia").html(c)
+                        // 减一
+                        $(this).next().html(parseInt($(this).next().html()) - 1)
+                        if ($(this).next().html() <= 0) {
+                            $(this).next().hide()
+                            $(this).hide()
+                            $(this).next().html(0)
+                           
+                        }
+                        // 判断总数是否消失
+                        if(a<=0){
+                             $(".zongshu").hide()
+                        }
+                        // 判断起送价格
+                        if (c <= 20) {
+                            $(".bot_right").children(1).show()
+                            $(".jiesuan").hide()
+                        }
+
+                        $(".huowu").html("");
+                        for(var i=0;i<$(".commodity_inf").length;i++){
+                            var shop = "";
+                            if(parseInt($(".content_right .sum").eq(i).html())){
+                            shop +="<li>"
+                            shop +="<p>"+$(".content_right .food_name").eq(i).html()+ "</p>"
+                            shop += "<p class='price'>" + $(".content_right .price").eq(i).html()+ "</p>"
+                            shop +="<p>"
+                            shop += "<span class='iconfont icon-jianshao'></span>"
+                            shop += "<span class='sum'>"+$(".content_right .sum").eq(i).html()+"</span>"
+                            shop += "<span class='iconfont icon-tianjia'></span>"
+                            shop +="</p>"
+                            shop +="</li>"
+                           $(".huowu").append(shop)
+                        }
+                        }
+
+                    })
+                    // 第二页优惠信息
+                    $(".star h3").html(res.seller.name)
+                    // 创建ul装信息
+                    var uli = "";
+                    uli += "<li>" + res.seller.supports[0].description + ",满50减10</li>"
+                    uli += "<li>" + res.seller.supports[1].description + "</li>"
+                    uli += "<li>" + res.seller.supports[2].description + "</li>"
+                    uli += "<li>" + res.seller.supports[3].description + "</li>"
+                    uli += "<li>" + res.seller.supports[4].description + "</li>"
+
+                    $(".discounts ul").html(uli);
+                    // 创建p标签装商店描述
+                    var p ="";
+                    p +="<p>"+res.seller.bulletin+ " </p>"
+                    $(".gonggao").html(p);
+                    // 判断评分显示星星
+                    // 获取评分
+                    var n = Math.floor(res.seller.score)
+                    // 获取余数
+                    var l = Math.floor(res.seller.score) - n
+                    // console.log(n)
+                    for (var k = 0; k < n; k++) {
+                        yh += "<span>"
+                        yh += "<img src='../resource/img/star24_on@3x.png'>"
+                        yh += "</span>"
+                    }
+                    if (l < 0.5) {
+                        yh += "<span>"
+
+                        yh += "<img src='../resource/img/star24_off@3x.png'>"
+                        yh += "</span>"
+                    } else {
+                        yh += "<span>"
+                        yh += "<img src='../resource/img/star36_on@2x.png'>"
+                        yh += "</span>"
+                    }
+                    $(".star_1").html(yh);
+
+                    // 评价
+                    var pj ="";
+                    // 头部
+                    pj +="<div class='pingjia_top'>"
+                    pj +="<div class='pingjia_top_left'>"
+                    pj +="<p>"+res.seller.score +"</p>"
+                    pj +="<p>"+"综合评分 "+"</p>"
+                    pj +="<p> 高于周边商家"+res.seller.rankRate +"% </p>"
+                    pj +="</div>"
+                    pj +="<div class='pingjia_top_right'>"
+                    // 服务态度
+                    pj +="<div class='fuwutaidu'>"
+                    pj +="<p>"+"服务态度"+"</p>"
+                    pj +="<p></p>"
+                    pj +="<p>"+res.seller.serviceScore +"</p>"
+                    pj +="</div>"
+                    // 菜品评分
+                    pj +="<div class='caipinpingfen'>"
+                    pj +="<p>"+"菜品评分"+"</p>"
+                    pj +="<p></p>"
+                    pj +="<p>"+res.seller.foodScore +"</p>"
+                    pj +="</div>"
+                    // 送达时间
+                    pj +="<div class='time'>"
+                    pj +="<p>"+"送达时间"+"</p>"
+                    pj +="<p>"+res.seller.deliveryTime +"分钟</p>"
+                    pj +="</div>"
+                    pj +="</div>"
+                    pj +="</div>"
+                    // 全部 满意 不满意
+                    
+                    pj += "<div class='manyi'>"
+                    var f =0;
+                    var g =0;
+                    var u =0;
+                    for(var h=0;h<res.ratings.length;h++){
+                        var fs = Math.floor(res.ratings[h].score)
+                            f++;    
+                         if(3<fs){
+                            g++;
+                        }else{
+                            u++;
+                        }
+                    }
+                    pj +="<span>全部"+f+"</span>"
+                    pj +="<span>满意"+g+"</span>"
+                    pj +="<span>不满意"+u+"</span>"
+                    pj += "</div>"
+                    // 只看有内容评价
+                    pj +="<div class='have_neirong'>"
+                    pj +="<p class='iconfont icon-icon_duihao-mian'>"+"只看有内容的评价"+"</p>"
+                    pj +="</div>"
+                    // 内容评价
+                    pj +="<div class='neirong_pj'>"
+                    for(var i = 0; i <res.ratings.length; i++){
+                        var score = res.ratings[i].score
+                        pj +="<ul>"
+                        pj +="<li><img src="+res.ratings[i].avatar+"></li>"
+                        pj +="<li>"
+                        pj +="<dl>"
+                            pj +="<dd><span>"+res.ratings[i].username+"</span><span>"+res.ratings[i].rateTime+"</span></dd>"
+                            // pj +="<dd><p>"+creatstart(score)+"</p><p>"+res.ratings[i].deliveryTime+"分钟送达</p></dd>"
+                            if(!res.ratings[i].deliveryTime ){
+                                pj +="<dd><p>"+creatstart(score)+"</dd>"
+                            }else{
+                                pj +="<dd><p>"+creatstart(score)+"</p><p>"+res.ratings[i].deliveryTime+"分钟送达</p></dd>"
+                            }
+                        pj +="<dd>"+res.ratings[i].text+"</dd>"
+                        if(res.ratings[i].rateType = 1){
+                            pj +="<dd><span class='iconfont icon-dianzan'></span><span>"+res.ratings[i].recommend+"</span></dd>"
+                        }else{
+                            pj +="<dd><span class='iconfont icon-dianzan1'></span><span>"+res.ratings[i].recommend+"</span></dd>"
+                        }
+                       
+                        pj +="</dl>"    
+                        pj +="</li>"
+                        pj +="</ul>"
+                    }                 
+                    pj +="</div>"
+                    $(".pingjia").html(pj);
+
+                    // 商家信息
+                    var sj ="";
+                    var score = res.seller.score
+                    // 头部
+                    sj +="<div class='sj_top'>"
+                        // 心心
+                        sj +="<div class='iconfont icon-xin'></div>"
+                        sj +="<a>"+"收藏"+"</a>"
+                        sj +="<a>"+"已收藏"+"</a>"
+                    sj +="<p class='sj_top_name'>"+res.seller.name+"</p>"
+                    sj +="<span class='yueshou'><p>"+creatstart(score)+"</p><p>月售"+res.seller.sellCount+"单</p></span>"
+                    sj +="<div class='sj_top_1'>"
+                        sj +="<span>"
+                            sj +="<p>起送价<br ><h3>"+res.seller.minPrice+"</h3>元</p>"
+                        sj +="</span>"
+                        sj +="<span>"
+                            sj +="<p>商家配送<br ><h3>"+res.seller.deliveryPrice+"</h3>元</p>"
+                        sj +="</span>"
+                        sj +="<span>"
+                            sj +="<p>平均配送时间<br ><h3>"+res.seller.deliveryTime+"</h3>分钟</p>"
+                        sj +="</span>"       
+                    sj +="</div>"   
+                    sj +="</div>"  
+                    // 公告与活动
+                    sj +="<p class='gonggao'>公告与活动<br/><span>"+res.seller.bulletin+"</span></p>"
+                    // 优惠
+                    sj +="<ul>"
+                        sj +="<li>" + res.seller.supports[0].description + ",满50减10</li>"
+                        sj +="<li>" + res.seller.supports[1].description + "</li>"
+                        sj +="<li>" + res.seller.supports[2].description + "</li>"
+                        sj +="<li>" + res.seller.supports[3].description + "</li>"
+                        sj +="<li>" + res.seller.supports[4].description + "</li>"
+                    sj +="</ul>"  
+                    // 商家实景
+                    sj +="<div class='shijing'>"
+                        sj +="<h3>商家实景</h3>"
+                        sj +="<span><img src="+res.seller.pics[0]+"> <img src="+res.seller.pics[1]+"><img src="+res.seller.pics[2]+"><img src="+res.seller.pics[3]+"></span>"
+                    sj +="</div>" 
+                    // 商家信息
+                    sj +="<ul>"
+                        sj +="<h3>商家信息</h3>"
+                        sj +="<li>" + res.seller.infos[0] + ",满50减10</li>"
+                        sj +="<li>" + res.seller.infos[1]  + "</li>"
+                        sj +="<li>" + res.seller.infos[2]  + "</li>"
+                        sj +="<li>" + res.seller.infos[3]  + "</li>"
+                      
+                    sj +="</ul>"  
+                    $(".shangjia").html(sj);
+                    //食品详情区
+                var food_intro = ''
+                for (var i = 0; i < res.goods.length; i++) {
+                    for (var k = 0; k < res.goods[i].foods.length; k++) {
+                        // console.log( res.goods[i].foods[k].image)
+                        food_intro +="<div class='iconfont icon-fanhui'></div>"
+                        food_intro += "<div class='intro_foodlist'><img src='" + res.goods[i].foods[k].image + "'>"
+                        food_intro += "<div class='food_name1'><p>" + res.goods[i].foods[k].name + "</p>"
+                        food_intro += "<div class='score'><h2>月售" + res.goods[i].foods[k].sellCount + "份</h2><h3>好评率" + res.goods[i].foods[k].rating + "%</div>"
+                        food_intro += "<div class='money'>￥" + res.goods[i].foods[k].price
+                        if (res.goods[i].foods[k].oldPrice) {
+                            food_intro += "<span>￥" + res.goods[i].foods[k].oldPrice + "</span>"
+                        }
+                        food_intro += "</h3></div></div>"
+                        food_intro += "<div class='border'></div>"
+                        food_intro += "<div class='textcontent'>"
+                        food_intro += "<p>商品介绍</p>"
+                        food_intro += "<div class='text'>" + res.goods[i].foods[k].info + "</div>"
+                        food_intro += "</div>"
+                        food_intro += "<div class='border'></div>"
+                        food_intro += "<div class='pingjia2'>"
+                        food_intro += "<h3>商品评价</h3>"
+                        food_intro += "<div class='totel'><div class='all'>全部" + res.goods[i].foods[k].ratings.length + "</div>"
+                        food_intro += "<div class='satisfy'>满意"
+                        var num = 0
+                        var un_num = 0
+                        for (var b = 0; b < res.goods[i].foods[k].ratings.length; b++) {
+                            if (res.goods[i].foods[k].ratings[b].rateType == 0) {
+                                num++
+                            } else {
+                                un_num++
+                            }
+                        }
+                        food_intro += "<span>" + num + "</span>"
+                        food_intro += "</div>"
+                        food_intro += "<div class='unsatisfy'>不满意<span>" + un_num + "</span></div>"
+                        food_intro += "</div>"
+                        food_intro += " <div class='only'><p>√</p><h5>只看有内容的评价</h5></div>"
+                        food_intro += "</div>"
+                        food_intro += "<div class='commend'>"
+                        for(var j=0;j<res.goods[i].foods[k].ratings.length;j++){
+                            var date = new Date(res.goods[i].foods[k].ratings[j].rateTime);
+                            food_intro +="<div class='list'><div class='user'><div class='time'>"+ date.toLocaleString()+"</div>"
+                            food_intro +="<div class='userinfor'><div class='name'>"+ res.goods[i].foods[k].ratings[j].username+"</div><img src=''></div></div></div>"
+                        }
+                        food_intro += "</div > "
+                        food_intro += "</div>"
+                    }
+                }
+                $(".food_intro_box").width($(".commodity_inf").length * 100 + "rem")
+                $(".food_intro_box").html(food_intro)
+                console.log($(".content_right_1 img").length)
+                $(".content_right_1").on("click","img",function(){
+                   for(var i=0;i<$(".content_right_1 img").length;i++){
+                    if($(this).parent().find(".food_name").html()==$(".intro_foodlist").eq(i).find(".food_name1 p").html()){
+                        $(".food_intro").show()
+                        $(".intro_foodlist").eq(i).show().siblings().hide();
+                        $(".icon-fanhui").show()
+                    }
+                   }
+                })
+                // 点击返回
+                $(".food_intro_box").on("click",".icon-fanhui",function(){
+                    $(".food_intro").hide()
+                })
+
+                    // 星星
+                                        // 判断评分显示星星
+                    // 获取评分
+                    var fwtd = "";
+                    var s = Math.floor(res.seller.serviceScore)
+                    // 获取余数
+                    var d = Math.floor(res.seller.serviceScore) - s
+                    // console.log(n)
+                    for (var v = 0; v < s; v++) {
+                        fwtd += "<span>"
+                        fwtd += "<img src='../resource/img/star36_on@2x.png'>"
+                        fwtd += "</span>"
+                    }
+                    if (d < 0.5) {
+                        fwtd += "<span>"
+
+                        fwtd += "<img src='../resource/img/star24_off@3x.png'>"
+                        fwtd += "</span>"
+                    } else {
+                        fwtd += "<span>"
+                        fwtd += "<img src='../resource/img/star36_on@2x.png'>"
+                        fwtd += "</span>"
+                    }
+                    // 食物评分星星
+                    var foodscore = "";
+                    var t = Math.floor(res.seller.serviceScore)
+                    // 获取余数
+                    var o = Math.floor(res.seller.serviceScore) - t
+                    // console.log(n)
+                    for (var w = 0; w < t; w++) {
+                        foodscore += "<span>"
+                        foodscore += "<img src='../resource/img/star24_on@3x.png'>"
+                        foodscore += "</span>"
+                    }
+                    if (o < 0.5) {
+                        foodscore += "<span>"
+
+                        foodscore += "<img src='../resource/img/star24_off@3x.png'>"
+                        foodscore += "</span>"
+                    } else {
+                        foodscore += "<span>"
+                        foodscore += "<img src='../resource/img/star36_on@2x.png'>"
+                        foodscore += "</span>"
+                    }
+                    $(".fuwutaidu>p:nth-of-type(2)").html(fwtd);
+                    $(".caipinpingfen>p:nth-of-type(2)").html(fwtd);
+
+
+                    // // 点击菜的照片跳转到菜的详情
+                    // var greens ="";
+                    // $(".commodity_inf>img").click(function(){
+                    //     // console.log(2)
+                    //     $(".bg_3").html(res.seller.supports[0].description)
+                    //     // 生成一个新的页面
+                        
+                    //     greens += "<div>"
+                    //     greens +="<li>" + res.seller.supports[0].description + ",满50减10</li>"
+                    //     greens += "</div>"
+                    // })
+                    // $(".product_details_txt").html(greens);
+
+                }
+
+            })
+        })
+        // 点击5个第二页出来和消失
+        $(".header_1 a").click(function(){
+            $(".special_offers").show()
+        })
+        $(".icon-fork").click(function(){
+            $(".special_offers").hide()
+        })
+        // 点击购物车出来
+        $(".icon-gouwuche").click(function(){
+            $(".shop_cart").toggle()
+        })
+        // 点击清空
+        $(".shop_cart_bot").on("click","span",function(){
+            $(".huowu li").hide()
+        })
+
+       
+        // 点击换颜色和内容
+        $(".shop p").click(function(){
+            $(".shop p").css("color","black")
+            $(this).css("color","red") 
+            // var i =$(this).index()
+            $(this).addClass(".on").siblings().removeClass("on")
+            $(".neirongqu_box").children().eq($(this).index()).show().siblings().hide()
+            
+        })
+        // 点击左边右边跟着跑
+        $(".fenlei").on("click","li",function(){
+            var i =$(this).index()
+            // console.log(i)
+            $(this).parents(".fenlei").find("p").css("color","#505357")
+            $(this).find("p").css("color","red");
+
+            $(".right").animate({scrollTop:($(".content_right .content_right_1").eq(i)[0]).offsetTop-168},"slow")
+            // console.log($(".content_right .content_right_1").eq(i)[0].offsetTop) 
+        })
+        // 点击心心变红显示已收藏
+        $(".shangjia").on("click",".icon-xin",function(){
+             $(this).addClass(".red")
+            if($(this).css(".red")){
+                $(this).css("background-color","red")
+            //     $(this).removeClass(".red")   
+            // }else{   
+            //     $(this).css("background-color","white")
+            }
+            
+            $(this).next().toggle()
+            $(this).next().next().toggle()
+        })
+        function creatstart(score){
+            var fwtd = "";
+                    var s = Math.floor(score)
+                    // 获取余数
+                    var d = 5 - s
+                    // console.log(n)
+                    for (var v = 0; v < s; v++) {
+                        fwtd += "<span>"
+                        fwtd += "<img src='../resource/img/star36_on@2x.png'>"
+                        fwtd += "</span>"
+
+                    }
+                    for (var v = 0; v < d; v++) {
+                        fwtd += "<span>"
+                        fwtd += "<img src='../resource/img/star36_off@2x.png'>"
+                        fwtd += "</span>"
+
+                    }
+
+                    return fwtd
+        }
+     
+    </script>
+</body>
+
+</html>
